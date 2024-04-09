@@ -4,7 +4,7 @@ import subprocess
 
 def print_out(name):
     text = ''
-    command = ["python3", "-u", f"scripts/{name}.py"] # Add '-u' to disable stdout buffering
+    command = ["python", "-u", f"scripts/{name}.py"] # Add '-u' to disable stdout buffering
     process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
 
     while process.poll() is None:
