@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import scripts
 from st_pages import Page, show_pages, add_page_title
 from numpy_intro import numpy_intro
 from numpy_creation import numpy_creation
