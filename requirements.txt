@@ -1,4 +1,4 @@
-numpy==1.26.4
-matplotlib==3.5.1
-matplotlib-inline==0.1.6
-st-pages==0.4.5
+numpy
+matplotlib
+matplotlib-inline
+st-pages
