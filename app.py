@@ -2,8 +2,6 @@ import streamlit as st
 from st_pages import Page, show_pages, add_page_title
 from numpy_intro import numpy_intro
 from numpy_creation import numpy_creation
-from numpy_indexing import numpy_indexing
-from numpy_broadcasting import numpy_broadcasting
 from numpy_operations import numpy_operations
 from numpy_polynomials import numpy_polynomials
 from numpy_linear_algebra import numpy_linear_algebra
