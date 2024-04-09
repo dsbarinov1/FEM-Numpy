@@ -1,10 +1,11 @@
 import streamlit as st
 import numpy as np
 import subprocess
+import sys
 
 def print_out(name):
     text = ''
-    command = ["python3", "-u", f"scripts/{name}.py"] # Add '-u' to disable stdout buffering
+    command = [f"{sys.executable}", "-u", f"scripts/{name}.py"] # Add '-u' to disable stdout buffering
     process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
 
     while process.poll() is None:
@@ -32,7 +33,7 @@ def numpy_operations():
     )
 
     text = ''
-    command = ["python3", "-u", f"scripts/shape_ndim.py"] # Add '-u' to disable stdout buffering
+    command = [f"{sys.executable}", "-u", f"scripts/shape_ndim.py"] # Add '-u' to disable stdout buffering
     process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
 
     while process.poll() is None:
@@ -56,7 +57,7 @@ def numpy_operations():
     )
 
     text = ''
-    command = ["python3", "-u", f"scripts/reshape.py"] # Add '-u' to disable stdout buffering
+    command = [f"{sys.executable}", "-u", f"scripts/reshape.py"] # Add '-u' to disable stdout buffering
     process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
 
     while process.poll() is None:
@@ -79,7 +80,7 @@ def numpy_operations():
     )
 
     text = ''
-    command = ["python3", "-u", f"scripts/ravel.py"] # Add '-u' to disable stdout buffering
+    command = [f"{sys.executable}", "-u", f"scripts/ravel.py"] # Add '-u' to disable stdout buffering
     process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
 
     while process.poll() is None:
@@ -102,7 +103,7 @@ def numpy_operations():
     """
     )
     text = ''
-    command = ["python3", "-u", f"scripts/copy.py"] # Add '-u' to disable stdout buffering
+    command = [f"{sys.executable}", "-u", f"scripts/copy.py"] # Add '-u' to disable stdout buffering
     process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
 
     while process.poll() is None:
@@ -127,7 +128,7 @@ def numpy_operations():
     )
 
     text = ''
-    command = ["python3", "-u", f"scripts/simple_op.py"] # Add '-u' to disable stdout buffering
+    command = [f"{sys.executable}", "-u", f"scripts/simple_op.py"] # Add '-u' to disable stdout buffering
     process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
 
     while process.poll() is None:
@@ -159,7 +160,7 @@ def numpy_operations():
     )
 
     text = ''
-    command = ["python3", "-u", f"scripts/x.py"] # Add '-u' to disable stdout buffering
+    command = [f"{sys.executable}", "-u", f"scripts/x.py"] # Add '-u' to disable stdout buffering
     process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
 
     while process.poll() is None:
