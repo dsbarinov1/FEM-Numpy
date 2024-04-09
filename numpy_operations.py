@@ -1,38 +1,215 @@
 import streamlit as st
 import numpy as np
+import subprocess
+
+def print_out(name):
+    text = ''
+    command = ["python3", "-u", f"scripts/{name}.py"] # Add '-u' to disable stdout buffering
+    process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
+
+    while process.poll() is None:
+        line = process.stdout.readline()
+        if not line:
+            continue
+        text += line.strip() + '  \n'
+    st.info(f"Output:  \n{text}")
 
 def numpy_operations():
     st.title('Операции и функции в NumPy')
 
-    st.markdown("""
-    ## Операции
+    st.write("## Размеры массива и количество размерностей")
 
+    #shape and dim
+    st.write("Pазмеры массива храниться в поле **shape**, а количество размерностей - в **ndim**")
+
+    st.markdown("""
+    ```python
+    array = np.ones((2, 3,))
+    print('Размерность массива - %s, количество размерностей - %d'%(array.shape, array.ndim))
+    print(array)
+    ```
+    """
+    )
+
+    text = ''
+    command = ["python3", "-u", f"scripts/shape_ndim.py"] # Add '-u' to disable stdout buffering
+    process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
+
+    while process.poll() is None:
+        line = process.stdout.readline()
+        if not line:
+            continue
+        text += line.strip() + '  \n'
+    st.info(f"Output:  \n{text}")
+
+    #reshape
+    st.write("Метод **[reshape](https://docs.scipy.org/doc/numpy/reference/generated/numpy.reshape.html)** позволяет преобразовать размеры массива без изменения данных")    
+
+
+    st.markdown("""
+    ```python
+    array = np.arange(0, 6, 0.5)
+    array = array.reshape((2, 6))
+    print(array)
+    ```
+    """
+    )
+
+    text = ''
+    command = ["python3", "-u", f"scripts/reshape.py"] # Add '-u' to disable stdout buffering
+    process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
+
+    while process.poll() is None:
+        line = process.stdout.readline()
+        if not line:
+            continue
+        text += line.strip() + '  \n'
+    st.info(f"Output:  \n{text}")
+
+
+    #ravel
+    st.write("Для того что бы развернуть многомерный массив в вектор, можно воспользоваться функцией **ravel**")
+
+    st.markdown("""
+    ```python
+    array = np.ravel(array)
+    print(array)
+    ```
+    """
+    )
+
+    text = ''
+    command = ["python3", "-u", f"scripts/ravel.py"] # Add '-u' to disable stdout buffering
+    process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
+
+    while process.poll() is None:
+        line = process.stdout.readline()
+        if not line:
+            continue
+        text += line.strip() + '  \n'
+    st.info(f"Output:  \n{text}")
+
+
+    #copy
+    st.write("## Копирование")
+    st.markdown("""
+    Для копирования в numpy есть метод **copy**
+    ```python
+    array1 = np.array([1,2,3])
+    array2 = array1.copy
+    print(array2)
+    ```
+    """
+    )
+    text = ''
+    command = ["python3", "-u", f"scripts/copy.py"] # Add '-u' to disable stdout buffering
+    process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
+
+    while process.poll() is None:
+        line = process.stdout.readline()
+        if not line:
+            continue
+        text += line.strip() + '  \n'
+    st.info(f"Output:  \n{text}")
+
+
+    #операции над массивами одинаковой размерности
+    st.markdown("""
+    ## Операции над массивами одинаковой размерности
+    Арифметические операции в NumPy можно производить непосредственно над массивами одинаковой размерности без использования циклов.\n
+    Например, вычисление поэлементного сложения (или разности) между векторами выглядит следующим образом:
+    ```python
+    vec1 = np.array([1, 1, 1, 1, 1])
+    vec2 = np.array([2, 2, 2, 2, 2])
+    print(vec1 + vec2)
+    ```
+    """
+    )
+
+    text = ''
+    command = ["python3", "-u", f"scripts/simple_op.py"] # Add '-u' to disable stdout buffering
+    process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
+
+    while process.poll() is None:
+        line = process.stdout.readline()
+        if not line:
+            continue
+        text += line.strip() + '  \n'
+    st.info(f"Output:  \n{text}")
+
+    st.markdown("""
+    Аналогчино для многомерных массивов\n
+    **Замечание:** Все арифметические операции над массивами одинаковой размерности производятся поэлементно
+                
+    
+    ## Операции
+    Транспонирование производится с помощью **.T**
+                
+    
+    В NumPy реализованно много полезных операций для работы с массивами: **[np.min](https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.min.html)**, 
+    **[np.max](https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.max.html)**, 
+    **[np.sum](https://docs.scipy.org/doc/numpy/reference/generated/numpy.sum.html)**, 
+    **[np.mean](https://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html)** и т.д.\n
+    **Замечание:** В каждой из перечисленных функций есть параметр \*\*axis\*\*, который указывает по какому измерению производить данную операцию. По умолчанию операция производится по всем значениям массива
     ```python
     x = np.arange(40).reshape(5, 2, 4)
     print(x)
+    ```           
+    """
+    )
 
-    print(x.mean())
-    print(np.mean(x))
+    text = ''
+    command = ["python3", "-u", f"scripts/x.py"] # Add '-u' to disable stdout buffering
+    process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, universal_newlines = True)
 
-    a =[[1, 2], [1, 0]]
-    b =np.unique(a, axis=0)
-    np.sort(a, axis=0)
+    while process.poll() is None:
+        line = process.stdout.readline()
+        if not line:
+            continue
+        text += line.strip() + '  \n'
+    st.info(f"Output:  \n{text}")
 
-    a = np.array([1, 2, 3], dtype=np.int_)
-    b = np.array([4, 5, 6], dtype=np.int_)
-    np.concatenate((a.reshape(len(a), 1), b.reshape(len(b), 1)), axis=1)
-
-    x.mean(axis=0)
-
-    x.mean(axis=1)
-
-    x.mean(axis=2)
-
-    x.mean(axis=(0,2))
-
-    x.mean(axis=(0,1,2))
+    st.markdown("""
+    ```python
+    print(x.mean(axis=0))
     ```
+    """
+    )
+    print_out("x_mean0")
 
+    st.markdown("""
+    ```python
+    print(x.mean(axis=1))
+    ```
+    """
+    )
+    print_out("x_mean1")
+
+    st.markdown("""
+    ```python
+    print(x.mean(axis=2))
+    ```
+    """
+    )
+    print_out("x_mean2")
+
+    st.markdown("""
+    ```python
+    print(x.mean(axis=(0, 2)))
+    ```
+    """
+    )
+    print_out("x_mean02")
+
+    st.markdown("""
+    Также есть операция **[np.unique](https://numpy.org/doc/stable/reference/generated/numpy.unique.html)**, возвращающая уникальные значения элементов массива,
+    и операция **[np.sort](https://numpy.org/doc/stable/reference/generated/numpy.sort.html)** возвращающая отсортированный массив
+    """
+    )
+    
+
+    st.markdown("""
+    
     ## Конкатенация многомерных массивов
 
     Конкатенировать несколько массивом можно с помощью функций **np.concatenate, np.hstack, np.vstack, np.dstack**
@@ -41,76 +218,22 @@ def numpy_operations():
     x = np.arange(10).reshape(5, 2)
     y = np.arange(100, 120).reshape(5, 4)
 
-    np.hstack((x, y))
+    print(np.hstack((x, y)))
+    ```
+    """)
 
+    print_out("hstack")
+
+    st.markdown("""
+    ```python
     a = np.array([1, 2, 3, 4, 5])
     b = np.zeros(5)
     c = np.vstack((a, b))
     c = c.T
-    c.ravel()
-
-    np.insert(a, range(1, len(a)), 0)
-
-    x = np.ones([2, 3])
-    y = np.zeros([2, 2])
-
-    # Какой будет результат
-    print(np.hstack((x,y)).shape)
-    print(np.vstack((x,y)).shape)
-
-    p = np.arange(1).reshape([1, 1, 1, 1])
-    p
-
-    print("vstack: ", np.vstack((p, p)).shape)
-    print("hstack: ", np.hstack((p, p)).shape)
-    print("dstack: ", np.dstack((p, p)).shape)
-    print("concatenate: ", np.concatenate((p, p), axis=3).shape)
-    ```
-
-    ## Типы
-
-    ```python
-    x = [1, 2, 70000]
-
-    np.array(x, dtype=np.float32)
-
-    np.array(x, dtype=np.uint16)
-
-    np.array(x, dtype=np.unicode_)
-    ```
-
-    ## Типизация
-
-    ```python
-    import numpy.typing as npt
-
-    def as_array(a: npt.ArrayLike) -> npt.NDArray[np.int_]:
-        return np.array(a)
-
-    arr = as_array([1,2, 3])
-    ```
-
-    ## Функциональное программирование
-
-    ```python
-    def f(value):
-        return np.sqrt(value)
-
-    print(np.apply_along_axis(f, 0, np.arange(10)))
-
-    vf = np.vectorize(f)
-
-    vf(np.arange(100000))
-    ```
-
-    ```python
-    np.apply_along_axis(f, 0, np.arange(100000))
-    ```
-
-    ```python
-    np.array([f(v) for v in np.arange(100000)])
+    print(c.ravel())
     ```
     """)
+    print_out("vstack")
 
 if __name__ == '__main__':
     numpy_operations()

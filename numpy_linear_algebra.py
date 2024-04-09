@@ -1,11 +1,14 @@
 import streamlit as st
 import numpy as np
-
+#import subprocess
 def numpy_linear_algebra():
+
+
+
     st.title("Линейная алгебра в NumPy")
-    
-    st.header("Dot Product (dot)")
-    st.markdown("Пример использования dot product:")
+    st.write("Функции numpy.linalg опираются на библиотеки BLAS и LAPACK для обеспечения эффективной низкоуровневой реализации стандартных алгоритмов линейной алгебры.")
+    st.header("Скалярное произведение (numpy.linalg.dot)")
+    st.markdown("Пример использования:")
     a = np.array([1, 2, 3])
     b = np.array([4, 5, 6])
     code = """
@@ -18,103 +21,192 @@ def numpy_linear_algebra():
     st.info(f"Output:  \n{dot_product}")
     st.write("---")
 
-    st.header("Matrix Multiplication (matmul)")
-    st.markdown("Пример использования matrix multiplication:")
+    st.header("Матричное произведение (numpy.linalg.matmul)")
+    st.markdown("Пример использования:")
+    matrix1 = np.array([[1, 2], [3, 4]])
+    matrix2 = np.array([[5, 6], [7, 8]])
+    code = """
     matrix1 = np.array([[1, 2], [3, 4]])
     matrix2 = np.array([[5, 6], [7, 8]])
     matrix_product = np.matmul(matrix1, matrix2)
-    st.write("matrix product:")
-    st.write(matrix_product)
+    """
+    st.code(code, language="python")
+    matrix_product = np.matmul(matrix1, matrix2)
+    st.info(f"Output:  \n{matrix_product[0]}  \n{matrix_product[1]}")
     st.write("---")
 
-    st.header("Outer Product (outer)")
-    st.markdown("Пример использования outer product:")
+    st.header("Внешнее произведение (numpy.linalg.outer)")
+    st.markdown("Пример использования:")
     outer_product = np.outer(a, b)
-    st.write("outer product:")
-    st.write(outer_product)
+    code = """
+    a = np.array([1, 2, 3])
+    b = np.array([4, 5, 6])
+    outer_product = np.outer(a, b)
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{outer_product[0]}  \n{outer_product[1]}  \n{outer_product[2]}")
     st.write("---")
 
-    st.header("Vectorized Dot Product (vdot)")
-    st.markdown("Пример использования vectorized dot product:")
-    vdot_product = np.vdot(a, b)
-    st.write(f"vectorized dot product: {vdot_product}")
-    st.write("---")
-
-    st.header("Einstein Summation (einsum)")
-    st.markdown("Пример использования einstein summation:")
-    x = np.arange(6).reshape(2, 3)
-    y = np.arange(3)
-    einsum_result = np.einsum('ij,j->i', x, y)
-    st.write("einsum result:")
-    st.write(einsum_result)
-    st.write("---")
-
-    st.header("Singular Value Decomposition (SVD)")
-    st.markdown("Пример использования Singular Value Decomposition (SVD):")
+    st.header("Сингулярное разложение (numpy.linalg.svd)")
+    st.markdown("Пример использования:")
+    code = """
     X = np.random.randn(3, 3)
-    U, S, VT = np.linalg.svd(X)
-    st.write("U:")
-    st.write(U)
-    st.write("S:")
-    st.write(S)
-    st.write("VT:")
-    st.write(VT)
+    print(X)
+    """
+    X = np.random.randn(3, 3)
+    U, S, V = np.linalg.svd(X)
+    st.code(code, language="python")
+    st.info(f"Output:  \n{X[0]}  \n{X[1]}  \n{X[2]}")
+    code = """
+    U, S, V = np.linalg.svd(X)
+    print(U)
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{U[0]}  \n{U[1]}  \n{U[2]}")
+    code = """
+    print(S)    
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{S}")
+    code = """
+    print(V)
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{V[0]}  \n{V[1]}  \n{V[2]}")
     st.write("---")
 
-    st.header("Eigenvalues and Eigenvectors")
-    st.markdown("Пример использования eigenvalues и eigenvectors:")
+    st.header("Собственные значения и собственные векторы(numpy.linalg.eig)")
+    st.write("Позволяет вычислить собственные значения и правые собственные векторы квадратной матрицы")
+    st.markdown("Пример использования:")
     A = np.array([[1, -2], [2, -3]])
     eigenvalues, eigenvectors = np.linalg.eig(A)
-    st.write("Eigenvalues:")
-    st.write(eigenvalues)
-    st.write("Eigenvectors:")
-    st.write(eigenvectors)
+    code = """
+    A = np.array([[1, -2], [2, -3]])
+    eigenvalues, eigenvectors = np.linalg.eig(A)
+    eigenvalues, eigenvectors
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{eigenvalues}  \n  \n{eigenvectors[0]}  \n{eigenvectors[1]}")
     st.write("---")
 
-    st.header("QR Decomposition")
-    st.markdown("Пример использования QR decomposition:")
+    st.header("QR Разложение (numpy.linalg.qr)")
+    st.markdown("Пример использования:")
     Q, R = np.linalg.qr(matrix1)
-    st.write("Q:")
-    st.write(Q)
-    st.write("R:")
-    st.write(R)
+    code = """
+    matrix = np.array([[1, 2], [3, 4]])
+    Q, R = np.linalg.qr(matrix)
+    Q, R
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{Q[0]}  \n  {Q[1]}  \n  \n{R[0]}  \n{R[1]}")
     st.write("---")
 
-    st.header("Matrix Inversion")
-    st.markdown("Пример использования matrix inversion:")
+    st.header("Обратная матрица (numpy.linalg.inv)")
+    st.markdown("Пример использования:")
     inverse_matrix = np.linalg.inv(matrix1)
-    st.write("Inverse matrix:")
-    st.write(inverse_matrix)
+    code = """
+    matrix = np.array([[1, 2], [3, 4]])
+    inverse_matrix = np.linalg.inv(matrix)
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{inverse_matrix[0]}  \n  {inverse_matrix[1]}")
     st.write("---")
 
-    st.header("Determinant")
-    st.markdown("Пример использования determinant:")
+    st.header("Определитель матрицы (numpy.linalg.det)")
+    st.markdown("Пример использования:")
     determinant = np.linalg.det(matrix1)
-    st.write("Determinant:")
-    st.write(determinant)
+    code = """
+    matrix = np.array([[1, 2], [3, 4]])
+    determinant = np.linalg.det(matrix)
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{determinant}")
     st.write("---")
 
-    st.header("Matrix Rank")
-    st.markdown("Пример использования matrix rank:")
+    st.header("Ранг матрицы (numpy.linalg.matrix_rank)")
+    st.markdown("Пример использования:")
     rank = np.linalg.matrix_rank(matrix1)
-    st.write("Rank:")
-    st.write(rank)
+    code = """
+    matrix = np.array([[1, 2], [3, 4]])
+    rank = np.linalg.matrix_rank(matrix)
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{rank}")
     st.write("---")
 
-    st.header("Matrix Power")
-    st.markdown("Пример использования matrix power:")
+    st.header("Возведение матрицы в степень (numpy.linalg.matrix_power)")
+    st.markdown("Пример использования:")
     power = 3
     powered_matrix = np.linalg.matrix_power(matrix1, power)
-    st.write(f"Matrix raised to the power of {power}:")
-    st.write(powered_matrix)
+    code = """
+    matrix = np.array([[1, 2], [3, 4]])
+    power = 3
+    powered_matrix = np.linalg.matrix_power(matrix, power)
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{powered_matrix[0]}  \n{powered_matrix[1]}")
     st.write("---")
 
-    st.header("Trace")
-    st.markdown("Пример использования trace:")
+    st.header("След матрицы (numpy.linalg.trace)  \nВозвращает сумму по указанным диагоналям матрицы (или 'стэка' матриц)  \nПри указании параметра offset=0 вернется сумма по главной диагонали  \n     При offset>0 - выше главной диагонали  \n     При offset<0 - ниже главной диагонали  \n     По умолчанию: offset=0")
+    st.markdown("Пример использования:")
     trace = np.trace(matrix1)
-    st.write("Trace:")
-    st.write(trace)
+    code = """
+    matrix = np.array([[1, 2], [3, 4]])
+    trace = np.trace(matrix)
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{trace}")
     st.write("---")
+
+
+
+    st.header("Норма вектора или матрицы (numpy.linalg.norm)")
+    st.write("Позволяет вычислять одну из восьми матричных норм и одну из бесконечного числа векторных норм")
+    st.markdown("Пример использования:")
+    matrix = np.array([[1, 2], [3, 4]])
+    np.linalg.norm(matrix)
+    code = """
+    matrix = np.array([[1, 2], [3, 4]])
+    np.linalg.norm(matrix, ord='fro')  # норма Фробениуса
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{np.linalg.norm(matrix, ord='fro')}")
+    st.write("---")
+
+    st.header("Число обусловленности(numpy.linalg.cond)")
+    st.write("Позволяет вычислить число обусловленности матрицы по одной из семи матричных норм")
+    st.markdown("Пример использования:")
+    a = np.array([[1, 0, -1], [0, 1, 0], [1, 0, 1]])
+    np.linalg.cond(a) 
+    code = """
+    a = np.array([[1, 0, -1], [0, 1, 0], [1, 0, 1]])
+    np.linalg.cond(a) #2-норма
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{np.linalg.cond(a)}")
+    code = """
+    np.linalg.cond(a, 'fro') #норма фробениуса
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{np.linalg.cond(a, 'fro')}")
+    st.write("---")
+
+
+    st.header("Решение систем линейных уравнений (numpy.linalg.solve)")
+    st.markdown("Пример использования:")
+    st.write("Решить систему:  \nx + 2 * y = 1  \n3 * x + 5 * y = 2")
+    a = np.array([[1, 2], [3, 5]])
+    b = np.array([1, 2])
+    x = np.linalg.solve(a, b)
+    code = """
+    a = np.array([[1, 2], [3, 5]])
+    b = np.array([1, 2])
+    x = np.linalg.solve(a, b)
+    """
+    st.code(code, language="python")
+    st.info(f"Output:  \n{x}")
+    st.write("---")
+
 
 if __name__ == "__main__":
     numpy_linear_algebra()
