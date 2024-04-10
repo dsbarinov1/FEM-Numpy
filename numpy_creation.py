@@ -285,7 +285,7 @@ if __name__ == '__main__':
             - Статическая типизация
         """)
 
-        max_size = st.slider("Выберите максимальный размер массива для сравнения", min_value=100, max_value=100000000, value=50000)
+        max_size = st.slider("Выберите максимальный размер массива для сравнения", min_value=100, max_value=50000000, value=50000)
         
         sizes, python_times, numpy_times = compare_creation_time(max_size)
 
